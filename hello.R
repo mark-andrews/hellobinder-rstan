@@ -1,8 +1,7 @@
 library(tidyverse)
+library(brms)
 
-diamonds %>% 
-  ggplot(mapping = aes(x = carat, y = price, colour = clarity)) + 
-  geom_point() +
-  theme_classic() +
-  theme(legend.position = 'bottom') +
-  ggtitle('Diamonds are forever')
+data_df <- tibble(x = rnorm(10))
+
+M <- brm(x ~ 1, data = data_df)
+
