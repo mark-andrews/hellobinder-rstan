@@ -4,6 +4,7 @@ ENV NB_USER rstudio
 ENV NB_UID 1000
 ENV VENV_DIR /srv/venv
 
+
 # Set ENV for all programs...
 ENV PATH ${VENV_DIR}/bin:$PATH
 # And set ENV for R! It doesn't read from the environment...
@@ -36,8 +37,7 @@ RUN python3 -m venv ${VENV_DIR} && \
 RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')" && \
     R --quiet -e "IRkernel::installspec(prefix='${VENV_DIR}')"
 
-RUN if [ -f install.R ]; then R --quiet -f install.R; fi
+RUN R --quiet -e "install.packages(c('rstan', 'brms', 'tidyverse'))"
 
 CMD jupyter notebook --ip 0.0.0.0
-
 
